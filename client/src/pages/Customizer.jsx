@@ -60,6 +60,15 @@ const Customizer = () => {
                 state.isLogoTexture = false
                 break;
         }
+
+        // after setting the state, activeFilterTab is updated
+
+        setActiveFilterTab((prevState) => {
+            return {
+                ...prevState,
+                [tabName]: !prevState[tabName]
+            }
+        })
     }
 
     const readFile = (type) => {
@@ -87,7 +96,7 @@ const Customizer = () => {
                             <CustomButton type="filled" title="Go Back" onClick={() => state.intro = true} customStyles="w-fit px-4 py-2.5 font-bold text-sm" />
                         </motion.div>
                         <motion.div className="filtertabs-container" {...slideAnimation("up")}>
-                            {FilterTabs?.map(tab => (<Tab key={tab.name} tab={tab} isFilterTab isActiveTab="" handleClick={() => { }} />))}
+                            {FilterTabs?.map(tab => (<Tab key={tab.name} tab={tab} isFilterTab isActiveTab={activeFilterTab[tab.name]} onClick={() => handleActiveFilterTab(tab.name)} />))}
                         </motion.div>
                     </>
                 )
